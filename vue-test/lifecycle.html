@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeCycle Practice</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app" ref="msg">{{msg}}</div>
+    <div ref="div"></div>
+  </body>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Hello vue!",
+      },
+      // vue 인스턴스가 생성되기 전
+      beforeCreate() {
+        console.log("beforeCreate!", this.msg);
+      },
+      // vue 인스턴스가 생성된 후
+      created() {
+        console.log("created!", this.msg);
+      },
+      beforeMount() {
+        console.log("beforeMount!", this.$refs.div);
+      },
+      mounted() {
+        console.log("mounted!", this.$refs.div);
+      },
+      // 데이터가 변경될 때 (변경되기 전)
+      beforeUpdate() {
+        console.log("beforeUpdated!", this.$refs.msg.innerText);
+      },
+      // 데이터가 변경될 때 (변경된 후)
+      updated() {
+        console.log("updated!", this.$refs.msg.innerText);
+      },
+      beforeDestroy() {
+        console.log("beforeDestroy!");
+      },
+      // 파괴하면 반응성 없어짐 (instance 역할 제대로 x)
+      destroyed() {
+        console.log("destroyed!");
+      },
+    });
+  </script>
+</html>

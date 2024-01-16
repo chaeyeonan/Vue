@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-once : 한번만 렌더링하고 반응성 X -->
+      <div v-once>{{msg}}</div>
+      <!--  v-html : html을 해석해서 출력 ex) 태그를 삽입해야될 때-->
+      <div v-html="msg"></div>
+      <div :class="className" @click="changeClassName">{{msg}}</div>
+    </div>
+  </body>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Hello Vue! <br/> Good Job~",
+        className: "normal",
+      },
+      methods: {
+        changeClassName() {
+          this.className = "active";
+        },
+      },
+    });
+  </script>
+
+  <style>
+    .className {
+      cursor: pointer;
+    }
+    .normal {
+      color: blue;
+    }
+    .active {
+      color: red;
+    }
+  </style>
+</html>
