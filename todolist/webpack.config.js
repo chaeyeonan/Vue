@@ -1,5 +1,6 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 require("@babel/polyfill");
 
 module.exports = {
@@ -33,5 +34,8 @@ module.exports = {
   plugins: [
     // make sure to include the plugin!
     new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "index.html"),
+    }),
   ],
 };
