@@ -17,18 +17,28 @@ export default {
       todolist: jsonData.todoData,
     };
   },
+  methods: {
+    deleteData(id) {
+      this.todolist = this.todolist.filter((item) => item.id !== id);
+    },
+  },
 };
 </script>
 
 <template>
-  <div>
-    <todo-item v-for="todos in todolist" :key="todos.id" :todo="todos" />
+  <div class="list-container">
+    <todo-item
+      v-for="todos in todolist"
+      :key="todos.id"
+      :todo="todos"
+      @deleteId="deleteData"
+    />
   </div>
 </template>
 
 <style scoped>
 .list-container {
-  background: white;
-  border-radius: 10px;
+  height: 85%;
+  overflow: auto;
 }
 </style>

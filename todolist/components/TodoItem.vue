@@ -6,13 +6,6 @@ export default {
       required: true,
     },
   },
-  methods: {
-    deleteTask(todo) {
-      console.log(todo);
-      todo = todo.filter((todoitem) => todoitem.id !== this.todo.id);
-      console.log(this.todo);
-    },
-  },
 };
 </script>
 
@@ -30,7 +23,7 @@ export default {
       <div
         class="button"
         :style="{ '--background-color': '#F6CEE3' }"
-        @click="deleteTask(todo)"
+        @click="$emit('deleteId', todo.id)"
       >
         삭제
       </div>

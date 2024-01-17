@@ -20,7 +20,7 @@ export default {
 
 <template>
   <div class="todoapp-container">
-    <div>
+    <div class="top-container">
       <div class="date">{{ createdDate }}</div>
       <todo-item-list :date="createdDate" />
     </div>
@@ -38,6 +38,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.top-container {
+  height: calc(100% - 50px);
+  box-sizing: border-box;
 }
 .date {
   font-size: 30px;

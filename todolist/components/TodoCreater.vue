@@ -13,6 +13,7 @@ export default {
     },
     pressEnter() {
       InsertData(this.task);
+      this.task = "";
     },
   },
 };

@@ -8,6 +8,4 @@ export const InsertData = (keywords) => {
       done: false,
       createdDate: "2023-01-16",
     });
-
-  keywords = "";
 };
