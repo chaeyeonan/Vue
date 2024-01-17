@@ -1,18 +1,47 @@
 <script>
 import TodoCreater from "./TodoCreater.vue";
-import TodoItem from "./TodoItem.vue";
+import TodoItemList from "./TodoItemList.vue";
 
 export default {
   components: {
     TodoCreater,
-    TodoItem,
+    TodoItemList,
+  },
+  data() {
+    const currentDate = new Date();
+    return {
+      createdDate: `${currentDate.getFullYear()}년 ${
+        currentDate.getMonth() + 1
+      }월 ${currentDate.getDate()}일`,
+    };
   },
 };
 </script>
 
 <template>
-  <div>
-    <todo-item />
+  <div class="todoapp-container">
+    <div>
+      <div class="date">{{ createdDate }}</div>
+      <todo-item-list :date="createdDate" />
+    </div>
     <todo-creater />
   </div>
 </template>
+
+<style scoped>
+.todoapp-container {
+  box-sizing: border-box;
+  padding: 50px 100px;
+  margin: 0;
+  background: lightblue;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.date {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 20px 0;
+}
+</style>

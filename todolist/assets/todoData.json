@@ -1,0 +1,22 @@
+{
+  "todoData": [
+    {
+      "id": 1,
+      "task": "아침 먹기",
+      "done": true,
+      "createdDate": "2023-01-01"
+    },
+    {
+      "id": 2,
+      "task": "점심 먹기",
+      "done": false,
+      "createdDate": "2023-01-01"
+    },
+    {
+      "id": 3,
+      "task": "저녁 먹기",
+      "done": false,
+      "createdDate": "2023-01-01"
+    }
+  ]
+}
