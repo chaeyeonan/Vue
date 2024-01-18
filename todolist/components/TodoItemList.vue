@@ -15,11 +15,12 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      todolist: this.todoItems,
-    };
-  },
+  // props로 받은 todoItems를 data로 한번 더 바인딩 해주면 반응성 반영 안됨
+  // data() {
+  //   return {
+  //     todolist: this.todoItems,
+  //   };
+  // },
   methods: {
     deleteData(id) {
       this.$emit("delete", id);
@@ -34,7 +35,7 @@ export default {
 <template>
   <div class="list-container">
     <todo-item
-      v-for="todos in todolist"
+      v-for="todos in todoItems"
       :key="todos.id"
       :todo="todos"
       @delete="deleteData"
