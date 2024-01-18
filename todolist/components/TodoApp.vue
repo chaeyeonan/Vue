@@ -3,38 +3,49 @@ import TodoCreater from "./TodoCreater.vue";
 import TodoItemList from "./TodoItemList.vue";
 import jsonData from "../assets/todoData.json";
 
+const currentDate =
+  new Date().getFullYear() +
+  "-" +
+  String(new Date().getMonth() + 1).padStart(2, "0") +
+  "-" +
+  String(new Date().getDate()).padStart(2, "0");
+
 export default {
   components: {
     TodoCreater,
     TodoItemList,
   },
   data() {
-    const currentDate = new Date();
+    // const currentDate = "2023-01-10";
     return {
-      createdDate: `${currentDate.getFullYear()}년 ${
-        currentDate.getMonth() + 1
-      }월 ${currentDate.getDate()}일`,
-
+      createdDate: currentDate,
       todolist: jsonData.todoData,
     };
+  },
+  computed: {
+    todolistOfToday() {
+      return this.todolist.filter(
+        (todo) => todo.createdDate === this.createdDate
+      );
+    },
   },
   methods: {
     insertTodo(task) {
       if (task.trim()) {
-        this.todolist.push({
+        this.todolistOfToday.push({
           id: Math.floor(Math.random() * 10000),
           task: task,
           done: false,
-          createdDate: new Date().toISOString().slice(0, 10),
+          createdDate: this.createdDate,
         });
       }
-      task = "";
     },
     deleteTodo(id) {
       // this.todolist = this.todolist.filter((item) => item.id !== id);
-      const index = this.todolist.findIndex((item) => item.id === id);
+      const index = this.todolistOfToday.findIndex((item) => item.id === id);
+      // const index = this.todolist.findIndex((item) => item.id === id);
       if (index !== -1) {
-        this.todolist.splice(index, 1);
+        this.todolistOfToday.splice(index, 1);
       }
     },
     updateTodo(id, task) {
@@ -49,7 +60,7 @@ export default {
     <div class="top-container">
       <div class="date">{{ createdDate }}</div>
       <todo-item-list
-        :todoItems="todolist"
+        :todoItems="todolistOfToday"
         :date="createdDate"
         @delete="deleteTodo"
         @update="updateTodo"
