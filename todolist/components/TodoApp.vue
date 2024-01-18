@@ -16,12 +16,14 @@ export default {
     TodoItemList,
   },
   data() {
+    // const currentDate = "2023-01-10";
     return {
       createdDate: currentDate,
       todolist: jsonData.todoData,
     };
   },
   computed: {
+    // 읽기전용 !!!
     todolistOfToday() {
       return this.todolist.filter(
         (todo) => todo.createdDate === this.createdDate
@@ -31,7 +33,7 @@ export default {
   methods: {
     insertTodo(task) {
       if (task.trim()) {
-        this.todolistOfToday.push({
+        this.todolist.push({
           id: Math.floor(Math.random() * 10000),
           task: task,
           done: false,
@@ -40,14 +42,12 @@ export default {
       }
     },
     deleteTodo(id) {
-      // (1) 삭제 구현 첫번째 방법 - filter 함수 사용
-      this.todolist = this.todolistOfToday.filter((item) => item.id !== id);
-      // (2) 삭제 구현 두번째 방법 - 배열에서 해당 index 찾아서 삭제하기
-      // const index = this.todolistOfToday.findIndex((item) => item.id === id);
-      // const index = this.todolist.findIndex((item) => item.id === id); -> 실행 안됨
-      //   if (index !== -1) {
-      //     this.todolistOfToday.splice(index, 1);
-      //   }
+      this.todolist = this.todolist.filter((item) => item.id !== id);
+      // const index = this.todolist.findIndex((item) => item.id === id);
+      // const index = this.todolist.findIndex((item) => item.id === id);
+      // if (index !== -1) {
+      //   this.todolist.splice(index, 1);
+      // }
     },
     updateTodo(id, task) {
       this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
