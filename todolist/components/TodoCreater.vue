@@ -1,6 +1,4 @@
 <script>
-import { InsertData } from "../functions/functions";
-
 export default {
   data() {
     return {
@@ -11,8 +9,7 @@ export default {
     changeKewords(e) {
       this.task = e.target.value;
     },
-    pressEnter() {
-      InsertData(this.task);
+    initializeValue() {
       this.task = "";
     },
   },
@@ -24,7 +21,12 @@ export default {
     <input
       :value="task"
       @input="changeKewords"
-      @keydown.enter="pressEnter"
+      @keydown.enter="
+        {
+          $emit('insertTask', task);
+          initializeValue();
+        }
+      "
       class="input"
       placeholder="할 일을 입력하세요"
     />

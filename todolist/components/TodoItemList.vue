@@ -1,6 +1,5 @@
 <script>
 import TodoItem from "./TodoItem.vue";
-import jsonData from "../assets/todoData.json";
 
 export default {
   components: {
@@ -11,15 +10,19 @@ export default {
       type: String,
       required: true,
     },
+    todoItems: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
-      todolist: jsonData.todoData,
+      todolist: this.todoItems,
     };
   },
   methods: {
     deleteData(id) {
-      this.todolist = this.todolist.filter((item) => item.id !== id);
+      this.$emit("delete", id);
     },
   },
 };
@@ -31,7 +34,7 @@ export default {
       v-for="todos in todolist"
       :key="todos.id"
       :todo="todos"
-      @deleteId="deleteData"
+      @delete="deleteData"
     />
   </div>
 </template>

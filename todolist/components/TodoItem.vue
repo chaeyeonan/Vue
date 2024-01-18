@@ -23,7 +23,7 @@ export default {
       <div
         class="button"
         :style="{ '--background-color': '#F6CEE3' }"
-        @click="$emit('deleteId', todo.id)"
+        @click="$emit('delete', todo.id)"
       >
         삭제
       </div>
