@@ -15,7 +15,7 @@ export default {
       required: true,
     },
   },
-  // props로 받은 todoItems를 data로 한번 더 바인딩 해주면 반응성 반영 안됨
+  // props로 받은 todoItems를 data로 한번 더 바인딩 해주면 반응성 반영 안됨 (mount 될 때 갱신)
   // data() {
   //   return {
   //     todolist: this.todoItems,
