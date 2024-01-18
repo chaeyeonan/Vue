@@ -6,19 +6,50 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      update: false,
+      task: "", // 일단 빈 문자열로 초기화
+    };
+  },
+  created() {
+    this.task = this.todo.task; // 컴포넌트가 생성될 때 task를 설정
+  },
+  methods: {
+    changeUpdateTF() {
+      this.update = !this.update;
+    },
+    updateTask() {
+      this.update = false;
+    },
+  },
 };
 </script>
 
 <template>
   <div class="container">
     <div class="row left">
-      <input type="checkbox" v-model="todo.done" />
-      <div>{{ todo.task }}</div>
+      <input class="checkbox" type="checkbox" v-model="todo.done" />
+      <input
+        class="updateInputbox"
+        v-if="update"
+        type="text"
+        v-model="task"
+        @keydown.enter="
+          updateTask();
+          $emit('update', todo.id, task);
+        "
+      />
+      <div v-else>{{ todo.task }}</div>
     </div>
 
     <div class="row">
-      <div class="button" :style="{ '--background-color': '#D8D8D8' }">
-        수정
+      <div
+        class="button"
+        :style="{ '--background-color': '#D8D8D8' }"
+        @click="changeUpdateTF"
+      >
+        {{ update ? "완료" : "수정" }}
       </div>
       <div
         class="button"
@@ -50,9 +81,17 @@ export default {
   align-items: center;
   font-size: 20px;
 }
-input {
+.checkbox {
   width: 25px;
   height: 25px;
+}
+.updateInputbox {
+  border: none;
+  border-bottom: 1px solid blue;
+  height: 25px;
+  font-size: 18px;
+  outline: none;
+  color: gray;
 }
 .button {
   background: var(--background-color);

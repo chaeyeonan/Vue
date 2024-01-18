@@ -19,7 +19,7 @@ export default {
     };
   },
   methods: {
-    insertData(task) {
+    insertTodo(task) {
       if (task.trim()) {
         this.todolist.push({
           id: Math.floor(Math.random() * 10000),
@@ -37,6 +37,9 @@ export default {
         this.todolist.splice(index, 1);
       }
     },
+    updateTodo(id, task) {
+      this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
+    },
   },
 };
 </script>
@@ -49,9 +52,10 @@ export default {
         :todoItems="todolist"
         :date="createdDate"
         @delete="deleteTodo"
+        @update="updateTodo"
       />
     </div>
-    <todo-creater @insertTask="insertData" />
+    <todo-creater @insertTask="insertTodo" />
   </div>
 </template>
 

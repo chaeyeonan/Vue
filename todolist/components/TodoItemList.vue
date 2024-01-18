@@ -24,6 +24,9 @@ export default {
     deleteData(id) {
       this.$emit("delete", id);
     },
+    updateData(id, task) {
+      this.$emit("update", id, task);
+    },
   },
 };
 </script>
@@ -35,6 +38,7 @@ export default {
       :key="todos.id"
       :todo="todos"
       @delete="deleteData"
+      @update="updateData"
     />
   </div>
 </template>
