@@ -78,7 +78,7 @@ export default {
   gap: 5px;
   align-items: center;
   font-size: 20px;
-  max-width: calc(100% - 134px);
+  width: calc(100% - 134px);
 }
 .checkbox {
   width: 25px;
@@ -93,7 +93,7 @@ export default {
   color: gray;
 }
 .task {
-  max-width: calc(100% - 50px);
+  width: calc(100% - 50px);
 }
 .button-container {
   display: flex;
