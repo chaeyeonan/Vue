@@ -28,7 +28,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row left">
+    <div class="left">
       <input class="checkbox" type="checkbox" v-model="todo.done" />
       <input
         class="updateInputbox"
@@ -40,10 +40,10 @@ export default {
           $emit('update', todo.id, task);
         "
       />
-      <div v-else>{{ todo.task }}</div>
+      <div v-else class="task">{{ todo.task }}</div>
     </div>
 
-    <div class="row">
+    <div class="button-container">
       <div
         class="button"
         :style="{ '--background-color': '#D8D8D8' }"
@@ -71,15 +71,14 @@ export default {
   background: white;
   border-radius: 10px;
   padding: 10px;
+  height: fit-content;
 }
-.row {
-  display: flex;
-}
-.row.left {
+.left {
   display: flex;
   gap: 5px;
   align-items: center;
   font-size: 20px;
+  max-width: calc(100% - 134px);
 }
 .checkbox {
   width: 25px;
@@ -92,6 +91,13 @@ export default {
   font-size: 18px;
   outline: none;
   color: gray;
+}
+.task {
+  max-width: calc(100% - 50px);
+}
+.button-container {
+  display: flex;
+  width: 124px;
 }
 .button {
   background: var(--background-color);

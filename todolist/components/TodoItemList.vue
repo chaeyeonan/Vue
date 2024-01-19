@@ -47,6 +47,7 @@ export default {
 <style scoped>
 .list-container {
   height: 85%;
+  width: 60%;
   overflow: auto;
 }
 </style>

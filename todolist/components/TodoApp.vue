@@ -1,25 +1,31 @@
 <script>
 import TodoCreater from "./TodoCreater.vue";
 import TodoItemList from "./TodoItemList.vue";
+import Calendar from "./Calendar.vue";
 import jsonData from "../assets/todoData.json";
 
-const currentDate =
-  new Date().getFullYear() +
-  "-" +
-  String(new Date().getMonth() + 1).padStart(2, "0") +
-  "-" +
-  String(new Date().getDate()).padStart(2, "0");
+// 날짜 포맷 함수
+const formatDate = (date) => {
+  return (
+    date.getFullYear() +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(date.getDate()).padStart(2, "0")
+  );
+};
 
 export default {
   components: {
     TodoCreater,
     TodoItemList,
+    Calendar,
   },
   data() {
-    // const currentDate = "2023-01-10";
     return {
-      createdDate: currentDate,
+      createdDate: formatDate(new Date()),
       todolist: jsonData.todoData,
+      todayDate: String(new Date()),
     };
   },
   computed: {
@@ -52,6 +58,9 @@ export default {
     updateTodo(id, task) {
       this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
     },
+    changeDate(date) {
+      this.createdDate = formatDate(date);
+    },
   },
 };
 </script>
@@ -59,13 +68,18 @@ export default {
 <template>
   <div class="todoapp-container">
     <div class="top-container">
-      <div class="date">{{ createdDate }}</div>
-      <todo-item-list
-        :todoItems="todolistOfToday"
-        :date="createdDate"
-        @delete="deleteTodo"
-        @update="updateTodo"
-      />
+      <div class="date-title">
+        {{ createdDate }}
+      </div>
+      <div class="calender-todolist-container">
+        <calendar :todayDate="todayDate" @changeDate="changeDate"></calendar>
+        <todo-item-list
+          :todoItems="todolistOfToday"
+          :date="createdDate"
+          @delete="deleteTodo"
+          @update="updateTodo"
+        />
+      </div>
     </div>
     <todo-creater @insertTask="insertTodo" />
   </div>
@@ -85,10 +99,17 @@ export default {
 .top-container {
   height: calc(100% - 50px);
   box-sizing: border-box;
+  width: 100%;
 }
-.date {
+.date-title {
   font-size: 30px;
   font-weight: bold;
   padding: 20px 0;
+}
+.calender-todolist-container {
+  width: 100%;
+  height: calc(100% - 30px);
+  display: flex;
+  gap: 50px;
 }
 </style>
