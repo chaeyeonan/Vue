@@ -30,6 +30,17 @@ export default {
       class="input"
       placeholder="할 일을 입력하세요"
     />
+    <div
+      class="button"
+      @click="
+        {
+          $emit('insertTask', task);
+          initializeValue();
+        }
+      "
+    >
+      추가
+    </div>
   </div>
 </template>
 
@@ -40,6 +51,7 @@ export default {
   background: white;
   border-radius: 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 15px;
 }
@@ -48,5 +60,11 @@ input {
   height: 50%;
   border: none;
   outline: none;
+}
+.button {
+  font-size: 15px;
+  padding: 8px 20px;
+  background: lightblue;
+  border-radius: 10px;
 }
 </style>

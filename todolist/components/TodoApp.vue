@@ -36,6 +36,7 @@ export default {
       );
     },
   },
+
   methods: {
     insertTodo(task) {
       if (task.trim()) {
@@ -45,6 +46,7 @@ export default {
           done: false,
           createdDate: this.createdDate,
         });
+        this.$refs.todoItemList.scrollToBottom();
       }
     },
     deleteTodo(id) {
@@ -78,6 +80,7 @@ export default {
           :date="createdDate"
           @delete="deleteTodo"
           @update="updateTodo"
+          ref="todoItemList"
         />
       </div>
     </div>

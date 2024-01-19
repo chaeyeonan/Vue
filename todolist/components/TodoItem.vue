@@ -40,7 +40,9 @@ export default {
           $emit('update', todo.id, task);
         "
       />
-      <div v-else class="task">{{ todo.task }}</div>
+      <div v-else :class="todo.done ? 'done-task' : 'task'">
+        {{ todo.task }}
+      </div>
     </div>
 
     <div class="button-container">
@@ -77,7 +79,7 @@ export default {
   display: flex;
   gap: 5px;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
   width: calc(100% - 134px);
 }
 .checkbox {
@@ -87,6 +89,7 @@ export default {
 .updateInputbox {
   border: none;
   border-bottom: 1px solid blue;
+  width: 100%;
   height: 25px;
   font-size: 18px;
   outline: none;
@@ -94,6 +97,11 @@ export default {
 }
 .task {
   width: calc(100% - 50px);
+}
+.done-task {
+  width: calc(100% - 50px);
+  text-decoration-line: line-through;
+  color: gray;
 }
 .button-container {
   display: flex;
