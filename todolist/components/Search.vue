@@ -6,7 +6,7 @@ export default {
     };
   },
   methods: {
-    tempFunc(e) {
+    searchKeywords(e) {
       this.value = e.target.value;
       this.$emit("search", this.value);
     },
@@ -16,7 +16,7 @@ export default {
 
 <template>
   <div class="search-container">
-    <input type="text" :value="value" @input="tempFunc" />
+    <input type="text" :value="value" @input="searchKeywords" />
     <font-awesome-icon icon="magnifying-glass" class="icon" />
   </div>
 </template>
