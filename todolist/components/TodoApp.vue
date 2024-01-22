@@ -3,6 +3,7 @@ import TodoCreater from "./TodoCreater.vue";
 import TodoItemList from "./TodoItemList.vue";
 import Calendar from "./Calendar.vue";
 import jsonData from "../assets/todoData.json";
+import Search from "./Search.vue";
 
 // 날짜 포맷 함수
 const formatDate = (date) => {
@@ -20,20 +21,34 @@ export default {
     TodoCreater,
     TodoItemList,
     Calendar,
+    Search,
   },
   data() {
     return {
       createdDate: formatDate(new Date()),
       todolist: jsonData.todoData,
       todayDate: String(new Date()),
+      searchKeywords: "",
     };
   },
   computed: {
-    // 읽기전용 !!!
-    todolistOfToday() {
-      return this.todolist.filter(
+    // 검색 및 날짜별 필터링을 모두 고려하는 새로운 computed 속성
+    filteredTodolist() {
+      let filteredList = this.todolist;
+
+      // 날짜별 필터링
+      filteredList = filteredList.filter(
         (todo) => todo.createdDate === this.createdDate
       );
+
+      // 검색어가 있는 경우 추가 필터링
+      if (this.searchKeywords) {
+        filteredList = filteredList.filter((todo) =>
+          todo.task.includes(this.searchKeywords)
+        );
+      }
+
+      return filteredList;
     },
   },
 
@@ -51,17 +66,15 @@ export default {
     },
     deleteTodo(id) {
       this.todolist = this.todolist.filter((item) => item.id !== id);
-      // const index = this.todolist.findIndex((item) => item.id === id);
-      // const index = this.todolist.findIndex((item) => item.id === id);
-      // if (index !== -1) {
-      //   this.todolist.splice(index, 1);
-      // }
     },
     updateTodo(id, task) {
       this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
     },
     changeDate(date) {
       this.createdDate = formatDate(date);
+    },
+    searchTodo(keywords) {
+      this.searchKeywords = keywords;
     },
   },
 };
@@ -72,11 +85,12 @@ export default {
     <div class="top-container">
       <div class="date-title">
         {{ createdDate }}
+        <search @search="searchTodo"></search>
       </div>
       <div class="calender-todolist-container">
         <calendar :todayDate="todayDate" @changeDate="changeDate"></calendar>
         <todo-item-list
-          :todoItems="todolistOfToday"
+          :todoItems="filteredTodolist"
           :date="createdDate"
           @delete="deleteTodo"
           @update="updateTodo"
@@ -108,6 +122,8 @@ export default {
   font-size: 30px;
   font-weight: bold;
   padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
 }
 .calender-todolist-container {
   width: 100%;
