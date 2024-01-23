@@ -25,9 +25,8 @@ export default {
   },
   data() {
     return {
-      createdDate: formatDate(new Date()),
       todolist: jsonData.todoData,
-      todayDate: String(new Date()),
+      todayDate: formatDate(new Date()),
       searchKeywords: "",
     };
   },
@@ -38,7 +37,7 @@ export default {
 
       // 날짜별 필터링
       filteredList = filteredList.filter(
-        (todo) => todo.createdDate === this.createdDate
+        (todo) => todo.createdDate === this.todayDate
       );
 
       // 검색어가 있는 경우 추가 필터링
@@ -59,7 +58,7 @@ export default {
           id: Math.floor(Math.random() * 10000),
           task: task,
           done: false,
-          createdDate: this.createdDate,
+          createdDate: this.todayDate,
         });
         this.$refs.todoItemList.scrollToBottom();
       }
@@ -71,7 +70,7 @@ export default {
       this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
     },
     changeDate(date) {
-      this.createdDate = formatDate(date);
+      this.todayDate = formatDate(date);
     },
     searchTodo(keywords) {
       this.searchKeywords = keywords;
@@ -84,14 +83,14 @@ export default {
   <div class="todoapp-container">
     <div class="top-container">
       <div class="date-title">
-        {{ createdDate }}
+        {{ todayDate }}
         <search @search="searchTodo"></search>
       </div>
       <div class="calender-todolist-container">
         <calendar :todayDate="todayDate" @changeDate="changeDate"></calendar>
         <todo-item-list
           :todoItems="filteredTodolist"
-          :date="createdDate"
+          :date="todayDate"
           @delete="deleteTodo"
           @update="updateTodo"
           ref="todoItemList"
