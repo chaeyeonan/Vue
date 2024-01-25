@@ -22,12 +22,6 @@ export default {
   //   };
   // },
   methods: {
-    deleteData(id) {
-      this.$emit("delete", id);
-    },
-    updateData(id, task) {
-      this.$emit("update", id, task);
-    },
     scrollToBottom() {
       this.$nextTick(() => {
         const container = this.$refs.listContainer;
@@ -40,13 +34,7 @@ export default {
 
 <template>
   <div class="list-container" ref="listContainer">
-    <todo-item
-      v-for="todos in todoItems"
-      :key="todos.id"
-      :todo="todos"
-      @delete="deleteData"
-      @update="updateData"
-    />
+    <todo-item v-for="todos in todoItems" :key="todos.id" :todo="todos" />
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { store } from "./store/store";
 
 library.add(fas);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -11,4 +12,5 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 new Vue({
   el: "#app",
   render: (h) => h(App), // https://css-tricks.com/what-does-the-h-stand-for-in-vues-render-method/
+  store: store,
 });

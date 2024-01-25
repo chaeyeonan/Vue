@@ -9,7 +9,8 @@ export default {
     changeKewords(e) {
       this.task = e.target.value;
     },
-    initializeValue() {
+    insertTodoItem() {
+      if (this.task.trim()) this.$store.commit("ADD_TODOITEM", this.task);
       this.task = "";
     },
   },
@@ -21,26 +22,11 @@ export default {
     <input
       :value="task"
       @input="changeKewords"
-      @keydown.enter="
-        {
-          $emit('insertTask', task);
-          initializeValue();
-        }
-      "
+      @keydown.enter="insertTodoItem"
       class="input"
       placeholder="할 일을 입력하세요"
     />
-    <div
-      class="button"
-      @click="
-        {
-          $emit('insertTask', task);
-          initializeValue();
-        }
-      "
-    >
-      추가
-    </div>
+    <div class="button" @click="insertTodoItem">추가</div>
   </div>
 </template>
 

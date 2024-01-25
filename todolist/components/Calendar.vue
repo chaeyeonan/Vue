@@ -19,6 +19,11 @@ export default {
       innerHeight: "100%",
     };
   },
+  methods: {
+    changeDate() {
+      this.$store.commit("CHANGE_DATE", this.date);
+    },
+  },
 };
 </script>
 
@@ -29,7 +34,7 @@ export default {
       :is-dark="isDark"
       :max-date="maxDate"
       :min-date="minDate"
-      @input="$emit('changeDate', date)"
+      @input="changeDate"
       class="calender"
     />
   </div>

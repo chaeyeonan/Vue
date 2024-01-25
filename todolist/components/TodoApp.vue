@@ -2,19 +2,7 @@
 import TodoCreater from "./TodoCreater.vue";
 import TodoItemList from "./TodoItemList.vue";
 import Calendar from "./Calendar.vue";
-import jsonData from "../assets/todoData.json";
 import Search from "./Search.vue";
-
-// 날짜 포맷 함수
-const formatDate = (date) => {
-  return (
-    date.getFullYear() +
-    "-" +
-    String(date.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(date.getDate()).padStart(2, "0")
-  );
-};
 
 export default {
   components: {
@@ -25,15 +13,13 @@ export default {
   },
   data() {
     return {
-      todolist: jsonData.todoData,
-      todayDate: formatDate(new Date()),
       searchKeywords: "",
     };
   },
   computed: {
     // 검색 및 날짜별 필터링을 모두 고려하는 새로운 computed 속성
     filteredTodolist() {
-      let filteredList = this.todolist;
+      let filteredList = this.$store.state.todolist;
 
       // 날짜별 필터링
       filteredList = filteredList.filter(
@@ -49,29 +35,11 @@ export default {
 
       return filteredList;
     },
+    todayDate() {
+      return this.$store.state.todayDate;
+    },
   },
-
   methods: {
-    insertTodo(task) {
-      if (task.trim()) {
-        this.todolist.push({
-          id: Math.floor(Math.random() * 10000),
-          task: task,
-          done: false,
-          createdDate: this.todayDate,
-        });
-        this.$refs.todoItemList.scrollToBottom();
-      }
-    },
-    deleteTodo(id) {
-      this.todolist = this.todolist.filter((item) => item.id !== id);
-    },
-    updateTodo(id, task) {
-      this.todolist.forEach((todo) => todo.id === id && (todo.task = task));
-    },
-    changeDate(date) {
-      this.todayDate = formatDate(date);
-    },
     searchTodo(keywords) {
       this.searchKeywords = keywords;
     },
@@ -87,17 +55,15 @@ export default {
         <search @search="searchTodo"></search>
       </div>
       <div class="calender-todolist-container">
-        <calendar :todayDate="todayDate" @changeDate="changeDate"></calendar>
+        <calendar :todayDate="todayDate"></calendar>
         <todo-item-list
           :todoItems="filteredTodolist"
           :date="todayDate"
-          @delete="deleteTodo"
-          @update="updateTodo"
           ref="todoItemList"
         />
       </div>
     </div>
-    <todo-creater @insertTask="insertTodo" />
+    <todo-creater />
   </div>
 </template>
 

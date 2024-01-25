@@ -16,11 +16,15 @@ export default {
     this.task = this.todo.task; // 컴포넌트가 생성될 때 task를 설정
   },
   methods: {
-    changeUpdateTF() {
-      this.update = !this.update;
+    deleteData() {
+      this.$store.commit("DELETE_TODOITEM", this.todo.id);
     },
-    updateTask() {
-      this.update = false;
+    updateData() {
+      this.$store.commit("UPDATE_TODOITEM", {
+        id: this.todo.id,
+        task: this.task,
+      });
+      this.update = !this.update;
     },
   },
 };
@@ -35,10 +39,7 @@ export default {
         v-if="update"
         type="text"
         v-model="task"
-        @keydown.enter="
-          updateTask();
-          $emit('update', todo.id, task);
-        "
+        @keydown.enter="updateData"
       />
       <div v-else :class="todo.done ? 'done-task' : 'task'">
         {{ todo.task }}
@@ -49,14 +50,14 @@ export default {
       <div
         class="button"
         :style="{ '--background-color': '#D8D8D8' }"
-        @click="changeUpdateTF"
+        @click="updateData"
       >
         {{ update ? "완료" : "수정" }}
       </div>
       <div
         class="button"
         :style="{ '--background-color': '#F6CEE3' }"
-        @click="$emit('delete', todo.id)"
+        @click="deleteData"
       >
         삭제
       </div>
