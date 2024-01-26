@@ -1,8 +1,4 @@
-import Vue from "vue";
-import Vuex from "vuex";
 import jsonData from "../assets/todoData.json";
-
-Vue.use(Vuex);
 
 // 날짜 포맷 함수
 const formatDate = (date) => {
@@ -15,7 +11,8 @@ const formatDate = (date) => {
   );
 };
 
-export const store = new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
     todolist: jsonData.todoData,
     todayDate: formatDate(new Date()),
@@ -46,4 +43,4 @@ export const store = new Vuex.Store({
       );
     },
   },
-});
+};

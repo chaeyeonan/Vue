@@ -19,7 +19,7 @@ export default {
   computed: {
     // 검색 및 날짜별 필터링을 모두 고려하는 새로운 computed 속성
     filteredTodolist() {
-      let filteredList = this.$store.state.todolist;
+      let filteredList = this.$store.state.todoApp.todolist;
 
       // 날짜별 필터링
       filteredList = filteredList.filter(
@@ -36,7 +36,7 @@ export default {
       return filteredList;
     },
     todayDate() {
-      return this.$store.state.todayDate;
+      return this.$store.state.todoApp.todayDate;
     },
   },
   methods: {

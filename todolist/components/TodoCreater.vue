@@ -10,7 +10,8 @@ export default {
       this.task = e.target.value;
     },
     insertTodoItem() {
-      if (this.task.trim()) this.$store.commit("ADD_TODOITEM", this.task);
+      if (this.task.trim())
+        this.$store.commit("todoApp/ADD_TODOITEM", this.task);
       this.task = "";
     },
   },

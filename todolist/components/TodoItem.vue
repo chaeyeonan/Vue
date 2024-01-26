@@ -17,10 +17,10 @@ export default {
   },
   methods: {
     deleteData() {
-      this.$store.commit("DELETE_TODOITEM", this.todo.id);
+      this.$store.commit("todoApp/DELETE_TODOITEM", this.todo.id);
     },
     updateData() {
-      this.$store.commit("UPDATE_TODOITEM", {
+      this.$store.commit("todoApp/UPDATE_TODOITEM", {
         id: this.todo.id,
         task: this.task,
       });

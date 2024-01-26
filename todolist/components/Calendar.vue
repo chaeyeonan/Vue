@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     changeDate() {
-      this.$store.commit("CHANGE_DATE", this.date);
+      this.$store.commit("todoApp/CHANGE_DATE", this.date);
     },
   },
 };
