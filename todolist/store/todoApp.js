@@ -13,10 +13,10 @@ const formatDate = (date) => {
 
 export default {
   namespaced: true,
-  state: {
+  state: () => ({
     todolist: jsonData.todoData,
     todayDate: formatDate(new Date()),
-  },
+  }),
   mutations: {
     // 선택한 날짜 변경
     CHANGE_DATE(state, date) {
