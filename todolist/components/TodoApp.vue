@@ -19,21 +19,12 @@ export default {
   computed: {
     // 검색 및 날짜별 필터링을 모두 고려하는 새로운 computed 속성
     filteredTodolist() {
-      let filteredList = this.$store.state.todoApp.todolist;
-
-      // 날짜별 필터링
-      filteredList = filteredList.filter(
-        (todo) => todo.createdDate === this.todayDate
-      );
-
-      // 검색어가 있는 경우 추가 필터링
-      if (this.searchKeywords) {
-        filteredList = filteredList.filter((todo) =>
-          todo.task.includes(this.searchKeywords)
+      if (this.searchKeywords)
+        return this.$store.getters["todoApp/filteredListByKeywords"](
+          this.searchKeywords
         );
-      }
 
-      return filteredList;
+      return this.$store.getters["todoApp/filteredListByDate"];
     },
     todayDate() {
       return this.$store.state.todoApp.todayDate;

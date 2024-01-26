@@ -17,6 +17,18 @@ export default {
     todolist: jsonData.todoData,
     todayDate: formatDate(new Date()),
   }),
+  getters: {
+    filteredListByDate: (state) => {
+      return state.todolist.filter(
+        (todo) => todo.createdDate === state.todayDate
+      );
+    },
+    filteredListByKeywords: (state, getters) => (keywords) => {
+      return getters.filteredListByDate.filter((todo) =>
+        todo.task.includes(keywords)
+      );
+    },
+  },
   mutations: {
     // 선택한 날짜 변경
     CHANGE_DATE(state, date) {
