@@ -1,20 +1,32 @@
 <template>
-  <v-app>
-    <v-container>
-      <search-bar />
-      <movie-list />
-    </v-container>
-  </v-app>
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/movieList">MovieList</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
-<script>
-import SearchBar from "@/components/SearchBar.vue";
-import MovieList from "@/components/MovieList.vue";
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  components: {
-    SearchBar,
-    MovieList,
-  },
-};
-</script>
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>
