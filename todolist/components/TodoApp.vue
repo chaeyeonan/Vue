@@ -17,13 +17,15 @@ export default {
     };
   },
   computed: {
-    // 검색 및 날짜별 필터링을 모두 고려하는 새로운 computed 속성
+    // ...mapGetters("todoApp", ["filteredListByKeywords", "filteredListByDate"]),
     filteredTodolist() {
       if (this.searchKeywords)
         return this.$store.getters["todoApp/filteredListByKeywords"](
           this.searchKeywords
         );
+      // return this.filteredListByKeywords(this.searchKeywords);
 
+      // return this.filteredListByDate;
       return this.$store.getters["todoApp/filteredListByDate"];
     },
     todayDate() {

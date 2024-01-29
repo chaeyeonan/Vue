@@ -1,4 +1,6 @@
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     todo: {
@@ -16,11 +18,15 @@ export default {
     this.task = this.todo.task; // 컴포넌트가 생성될 때 task를 설정
   },
   methods: {
+    ...mapMutations("todoApp", {
+      deleteTodo: "DELETE_TODOITEM", // 'todoApp/DELETE_TODOITEM'를 deleteTodo 메서드로 매핑
+      updateTodo: "UPDATE_TODOITEM", // 'todoApp/UPDATE_TODOITEM'를 updateTodo 메서드로 매핑
+    }),
     deleteData() {
-      this.$store.commit("todoApp/DELETE_TODOITEM", this.todo.id);
+      this.deleteTodo(this.todo.id); // 매핑된 메서드 사용
     },
     updateData() {
-      this.$store.commit("todoApp/UPDATE_TODOITEM", {
+      this.updateTodo({
         id: this.todo.id,
         task: this.task,
       });
